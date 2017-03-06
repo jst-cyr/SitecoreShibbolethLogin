@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SitecoreShibbolethLogin", "src\Feature\Identity\code\SitecoreShibbolethLogin.csproj", "{0F2E439A-6DEA-4F5F-A723-4C1728D95CF3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Feature", "Feature", "{04E85FD8-4E47-4F28-A990-711A1952E4E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{2B2852E5-BA31-44FB-ACC4-31EAA82CD41E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "code", "code", "{0A3B4677-8281-4BB7-B71F-7A2A0806F03D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0F2E439A-6DEA-4F5F-A723-4C1728D95CF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F2E439A-6DEA-4F5F-A723-4C1728D95CF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F2E439A-6DEA-4F5F-A723-4C1728D95CF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F2E439A-6DEA-4F5F-A723-4C1728D95CF3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0F2E439A-6DEA-4F5F-A723-4C1728D95CF3} = {0A3B4677-8281-4BB7-B71F-7A2A0806F03D}
+		{2B2852E5-BA31-44FB-ACC4-31EAA82CD41E} = {04E85FD8-4E47-4F28-A990-711A1952E4E8}
+		{0A3B4677-8281-4BB7-B71F-7A2A0806F03D} = {2B2852E5-BA31-44FB-ACC4-31EAA82CD41E}
+	EndGlobalSection
+EndGlobal
