@@ -27,10 +27,10 @@ namespace Sitecore.Feature.Identity.Shibboleth.Web
 		public void Login(IPrincipal principal)
 		{
 
-			var identity = principal.Identity;
+			var identity = principal.Identity as ClaimsIdentity;
 			var allowLoginToShell = false;
 #if DEBUG
-			WriteClaimsInfo(principal.Identity as ClaimsIdentity);
+			WriteClaimsInfo(identity);
 #endif
 			if (!identity.IsAuthenticated)
 				return;
@@ -39,10 +39,11 @@ namespace Sitecore.Feature.Identity.Shibboleth.Web
 			{
 				var virtualUser = AuthenticationManager.BuildVirtualUser(userName, true);
 
+				//Add roles
 				var roles = Context.Domain.GetRoles();
 				if (roles != null)
 				{
-					var groups = GetGroups(principal.Identity as ClaimsIdentity);
+					var groups = GetGroups(identity);
 					foreach (var role in from role in roles
 										 let roleName = GetRoleName(role.Name)
 										 where groups.Contains(roleName.ToLower()) && !virtualUser.Roles.Contains(role)
@@ -68,7 +69,16 @@ namespace Sitecore.Feature.Identity.Shibboleth.Web
 					if (virtualUser.RuntimeSettings.IsAdministrator)
 						allowLoginToShell = true;
 				}
-				virtualUser.Profile.Email = "aap@app.com";
+
+				//Extract user details from claims
+				var email = GetClaimValue(identity, ClaimTypes.Email);
+				var firstName = GetClaimValue(identity, ClaimTypes.GivenName);
+				var lastName = GetClaimValue(identity, ClaimTypes.Surname);
+
+				//Update virtual user
+				virtualUser.Profile.Email = email;
+				virtualUser.Profile.FullName = String.Format("{0} {1}", firstName, lastName);
+
 				AuthenticationManager.Login(virtualUser);
 				var tracker = Tracker.Current;
 				if (tracker != null)
@@ -85,7 +95,7 @@ namespace Sitecore.Feature.Identity.Shibboleth.Web
 		/// </summary>
 		/// <param name="claimsIdentity">The claims identity.</param>
 		/// <returns></returns>
-		private static IEnumerable<string> GetGroups(ClaimsIdentity claimsIdentity)
+		protected virtual IEnumerable<string> GetGroups(ClaimsIdentity claimsIdentity)
 		{
 			var enumerable =
 				claimsIdentity.Claims.Where(
@@ -117,14 +127,26 @@ namespace Sitecore.Feature.Identity.Shibboleth.Web
 		}
 
 		/// <summary>
+		/// Extract the claim value from the identity
+		/// </summary>
+		/// <param name="claimsIdentity">The current identity</param>
+		/// <param name="type">The type to extract</param>
+		/// <returns>The user's value for that claim</returns>
+		protected virtual string GetClaimValue(ClaimsIdentity claimsIdentity, string type)
+		{
+			var claim = claimsIdentity.FindFirst(type);
+			return (claim != null) ? claim.Value : null;
+		}
+		
+		/// <summary>
 		/// Writes the claims information.
 		/// </summary>
 		/// <param name="claimsIdentity">The claims identity.</param>
 		private void WriteClaimsInfo(ClaimsIdentity claimsIdentity)
 		{
-			Log.Info("Writing Claims Info", this);
+			Log.Debug("Writing Claims Info", this);
 			foreach (var claim in claimsIdentity.Claims)
-				Log.Info(string.Format("Claim : {0} , {1}", claim.Type, claim.Value), this);
+				Log.Debug(string.Format("Claim : {0} , {1}", claim.Type, claim.Value), this);
 		}
 
 		/// <summary>

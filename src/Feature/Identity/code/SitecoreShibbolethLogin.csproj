@@ -44,7 +44,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="App_Config\Include\Feature\Feature.Identity.Shibboleth.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
