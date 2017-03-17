@@ -40,25 +40,9 @@ The following configuration settings are available:
       - The 'name' attribute is the name that will be referenced by the Request Map (use your hostname e.g. sitecore-sp.example.org) 
       - Example: `<Site id="2" name="sitecore-sp.example.org"/>`
    2. Request Map
-      - You need to define the site that will be protected by Shibboleth and also which areas will force a login. To lock down for the entire site, Shibboleth needs to intercept all the requests, but we want Sitecore to work and let users login with 'sitecore' accounts, so we need exceptions to allow Sitecore to function. Below is an example of a host set to restrict the entire site, but allow exceptions for subfolders. You might have your own subfolders you want to add to the list (maybe an assets folder that has your CSS?)
+      - You need to define the site that will be protected by Shibboleth and also which areas will force a login. To lock down for the entire site, Shibboleth needs to intercept all the requests, but we want Sitecore to work and let users login with 'sitecore' accounts, so we need exceptions to allow Sitecore to function. Below link goes to an example of a host set to restrict the entire site, but allow exceptions for subfolders. You might have your own subfolders you want to add to the list (maybe an assets folder that has your CSS?)
+      - https://github.com/jst-cyr/SitecoreShibbolethLogin/blob/master/ShibbolethHostExample.xml
  
-```xml
-   <Host name="sitecore-sp.example.org" authType="shibboleth" requireSession="true"> 
-    <!--Exclude the Sitecore default folders so that Sitecore handles those requests--> 
-    <Path name="App_Browsers" authType="shibboleth" requireSession="false"/> 
-    <Path name="App_Config" authType="shibboleth" requireSession="false"/> 
-    <Path name="App_Data" authType="shibboleth" requireSession="false"/> 
-    <Path name="Areas" authType="shibboleth" requireSession="false"/> 
-    <Path name="layouts" authType="shibboleth" requireSession="false"/> 
-    <Path name="sitecore" authType="shibboleth" requireSession="false"/> 
-    <Path name="sitecore modules" authType="shibboleth" requireSession="false"/> 
-    <Path name="sitecore_files" authType="shibboleth" requireSession="false"/> 
-    <Path name="temp" authType="shibboleth" requireSession="false"/> 
-    <Path name="upload" authType="shibboleth" requireSession="false"/> 
-    <Path name="Views" authType="shibboleth" requireSession="false"/> 
-    <Path name="xsl" authType="shibboleth" requireSession="false"/> 
-   </Host>
-```
    3. ApplicationDefaults entityID
       - Specify the entityID attribute with your hostname to make things easy (e.g. https://sitecore-sp.example.org). This is used to refer to your application between the IdP and the SP.
    4. ApplicationDefaults SSO entityID for IdP
