@@ -1,0 +1,15 @@
+<Host name="sitecore-sp.example.org" authType="shibboleth" requireSession="true"> 
+    <!--Exclude the Sitecore default folders so that Sitecore handles those requests--> 
+    <Path name="App_Browsers" authType="shibboleth" requireSession="false"/> 
+    <Path name="App_Config" authType="shibboleth" requireSession="false"/> 
+    <Path name="App_Data" authType="shibboleth" requireSession="false"/> 
+    <Path name="Areas" authType="shibboleth" requireSession="false"/> 
+    <Path name="layouts" authType="shibboleth" requireSession="false"/> 
+    <Path name="sitecore" authType="shibboleth" requireSession="false"/> 
+    <Path name="sitecore modules" authType="shibboleth" requireSession="false"/> 
+    <Path name="sitecore_files" authType="shibboleth" requireSession="false"/> 
+    <Path name="temp" authType="shibboleth" requireSession="false"/> 
+    <Path name="upload" authType="shibboleth" requireSession="false"/> 
+    <Path name="Views" authType="shibboleth" requireSession="false"/> 
+    <Path name="xsl" authType="shibboleth" requireSession="false"/> 
+</Host>
